@@ -1,5 +1,5 @@
 # _Chatroom
-The very first project in the Udacity 
+The very first project in the Udacity Java Developer Nanodegree
 
 
 ## Background
