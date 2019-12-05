@@ -44,7 +44,7 @@ public class WebSocketChatApplication {
         mv.addObject("username", username);
         // TODO: To return Route = "ws://localhost:8080/chat"
         mv.addObject("url","ws://" + InetAddress.getLocalHost().getHostName() + ":" +request.getServerPort()+request.getContextPath() + "/chat");
-        login();
+        
         return mv;
     }
 }
