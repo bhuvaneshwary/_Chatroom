@@ -23,7 +23,7 @@ public class WebSocketChatApplication {
     /**
      * Login Page
      */
-    @GetMapping("/login")
+    @GetMapping("/")
     public ModelAndView login() {
         return new ModelAndView("/login");
 
