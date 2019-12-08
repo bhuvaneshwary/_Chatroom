@@ -30,29 +30,17 @@ public class WebSocketChatServer {
         /*pseudocode
          * For each online session {}
          * session.sendMessage(message.toJSON())
-
          */
-        System.out.println("Running the send message method"+msg.getMessage());
-        for (Session session:onlineSessions.values()){
-            String str = "";
-            if (msg.getType().equals("ENTER")&&onlineSessions.containsKey(msg.getName())){
-                str = msg.getName() +"Enter the chatroom";
+           for (Map.Entry<String, Session> entry : onlineSessions.entrySet()) {
+      Session session = entry.getValue();
+      try {
+        session.getBasicRemote().sendText(msg);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
 
-            }
-            else if(msg.getType().equals("LEAVE")){
-                str = msg.getName()+"just left the chatroom";
-            }
-
-            else if (msg.getType().equals("SPEAK")){
-                str = msg.getName()+"said"+msg.getMessage();
-            }
-
-            msg.setMessage(str);
-            String json = JSON.toJSONString(msg);
-            session.getBasicRemote().sendText(json);
-
-        }
-
+     
     }
 
     /**
@@ -73,12 +61,13 @@ public class WebSocketChatServer {
 
         //TODO : Construct a new message using json string
         //TODO: sendMessageToAll
-        Message onmessage = new Message();
-        onmessage.setName(session.getId());
-        onmessage.setMessage(jsonStr);
-        onmessage.setType("TELL SOMETHING");
+         Message onMsg = new Message();
+        onMsg.setName(session.getId());
+        onMsg.setMessage(jsonStr);
+        onMsg.setMessage("SPEAK");
+        String message= onMsg.toString();
+        sendMessageToAll(message);
 
-        sendMessageToAll(onmessage);
 
 
     }
