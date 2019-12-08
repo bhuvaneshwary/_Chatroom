@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 @Component
-@ServerEndpoint("/chat/{username}")
+@ServerEndpoint("/chat")
 public class WebSocketChatServer {
 
     /**
