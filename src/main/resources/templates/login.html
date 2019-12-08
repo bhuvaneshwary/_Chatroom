@@ -150,12 +150,17 @@
      * Login
      */
  function login() {
-        var username = $('#username').val();
+       
 
-            /*
+         /*
             *Here we are using the window.location api to route the code to the chatpage
             */
-         location.href = '/index?username='+$('#username').val();
+          var username  = $('#username').val();
+
+            var path =  '/index?username='+username;
+          
+         location.href = path ;
+
 
         }
 
@@ -166,10 +171,7 @@
     /**
      * Enter to login.
      */
-      document.onkeydown = function (event) {
-        var e = event || window.event || arguments.callee.caller.arguments[0];
-        e.keyCode === 13 && login();
-    };
+     
 
 </script>
 
