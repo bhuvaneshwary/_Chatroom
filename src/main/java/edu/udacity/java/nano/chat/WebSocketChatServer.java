@@ -25,7 +25,7 @@ public class WebSocketChatServer {
      */
     private static Map<String, Session> onlineSessions = new ConcurrentHashMap<>();
 
-    private static void sendMessageToAll(Message msg) throws IOException {
+    private static void sendMessageToAll(String msg) throws IOException {
         //TODO: add send message method.
         /*pseudocode
          * For each online session {}
