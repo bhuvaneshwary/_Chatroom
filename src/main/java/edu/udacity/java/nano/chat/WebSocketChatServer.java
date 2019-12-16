@@ -4,10 +4,15 @@ import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.awt.*;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static java.awt.TrayIcon.*;
 
 /**
  * WebSocket Server
@@ -17,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 @Component
-@ServerEndpoint("/chat")
+@ServerEndpoint("/chat/{username}")
 public class WebSocketChatServer {
 
     /**
@@ -25,13 +30,17 @@ public class WebSocketChatServer {
      */
     private static Map<String, Session> onlineSessions = new ConcurrentHashMap<>();
 
+
+
     private static void sendMessageToAll(String msg) throws IOException {
         //TODO: add send message method.
         /*pseudocode
          * For each online session {}
          * session.sendMessage(message.toJSON())
+         /
          */
-           for (Map.Entry<String, Session> entry : onlineSessions.entrySet()) {
+
+        for (Map.Entry<String, Session> entry : onlineSessions.entrySet()) {
       Session session = entry.getValue();
       try {
         session.getBasicRemote().sendText(msg);
@@ -39,8 +48,6 @@ public class WebSocketChatServer {
         e.printStackTrace();
       }
     }
-
-     
     }
 
     /**
@@ -50,6 +57,7 @@ public class WebSocketChatServer {
     public void onOpen(Session session) {
         //TODO: add on open connection.
         System.out.println("On open :" + session.getId());
+
         onlineSessions.put(session.getId(),session);
     }
 
@@ -57,19 +65,30 @@ public class WebSocketChatServer {
      * Send message, 1) get username and session, 2) send message to all.
      */
     @OnMessage
-    public void onMessage(Session session, String jsonStr) throws IOException {
+    public void onMessage(Session session,String jsonStr) throws IOException {
 
-        //TODO : Construct a new message using json string
-        //TODO: sendMessageToAll
-         Message onMsg = new Message();
+
+        System.out.println("On message");
+        Message onMsg = new Message();
         onMsg.setName(session.getId());
-        onMsg.setMessage(jsonStr);
-        onMsg.setMessage("SPEAK");
-        String message= onMsg.toString();
-        sendMessageToAll(message);
+        onMsg.setType("SPEAK");
+        sendMessageToAll(JSON.toJSONString(onMsg));
 
 
+       /* Message message = JSON.parseObject(jsonStr, Message.class);
+       message.setType(MessageType.SPEAK.toString());
+        sendMessageToAll(JSON.toJSONString(message));
 
+        */
+
+
+/*
+@PathParam("Username"
+        onlineSessions.put(session.getId(), session);
+        users.put(session.getId(), user);
+        sendMessageToAll(Message.strToJson("ENTERED THE CHAT", user, onlineSessions.size(), "ENTER"));
+
+ */
     }
 
     /**
@@ -78,8 +97,9 @@ public class WebSocketChatServer {
     @OnClose
     public void onClose(Session session) {
         //TODO: add close connection.
+        System.out.println("On close :" + session.getId());
         onlineSessions.remove(session.getId(),session);
-        System.out.println("On open :" + session.getId());
+
     }
 
     /**
@@ -91,3 +111,8 @@ public class WebSocketChatServer {
     }
 
 }
+
+
+     
+   
+        
