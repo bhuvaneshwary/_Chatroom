@@ -37,8 +37,8 @@
                     </div>
                     <div class="mdui-container" style="padding:20px 35px">
                         <!-- TODO: add a send button to send message -->
-                        <button id="send-msg" class="mdui-btn mdui-color-theme mdui-ripple"
-                                onclick="sendMsgToServer()">Send (Enter)
+                        <button class="mdui-btn mdui-color-theme-accent mdui-ripple"
+                                onclick="sendMsgToServer()" id="send-msg">Send
                         </button>
                         <button class="mdui-btn mdui-color-theme mdui-ripple"
                                 onclick="clearMsg()">Clear
@@ -59,11 +59,11 @@
                         <i class="mdui-icon material-icons">face</i></span>
                     <span class="mdui-chip-title">Online Users</span>
                     <!-- TODO: check online number num -->
-                    <span class="mdui-chip-title chat-num" id=text(message.onlineCount)>0</span>
+                    <span class="mdui-chip-title chat-num"></span>
                 </div>
                 <!-- TODO: add a message container -->
                 <div class="message-container"></div>
-                <div class="users-container"></div>
+
             </div>
 
         </div>
@@ -166,3 +166,8 @@
 </html>
 
 
+
+                      
+
+
+ 
