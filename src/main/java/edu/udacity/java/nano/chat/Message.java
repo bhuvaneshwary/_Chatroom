@@ -1,5 +1,7 @@
 package edu.udacity.java.nano.chat;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * WebSocket message model
  */
@@ -8,10 +10,10 @@ public class Message {
    // public Object setName;
 
 
-    private String username;
     private String type;
-    private String onlineCount;
+    private int onlineCount;
     private String message;
+    private String Username;
 
     public Message() {
 
@@ -19,7 +21,15 @@ public class Message {
     }
 
     public Message(String text){
-        this.name = text;
+        this.Username = text;
+    }
+
+    public Message(String msg, String username, int onlineCount, String type) {
+        this.message = msg;
+        this.Username = username;
+        this.onlineCount = onlineCount;
+
+        this.type = type;
     }
 
     public String getMessage() {
@@ -30,11 +40,11 @@ public class Message {
         this.message = message;
     }
 
-    public String getOnlineCount() {
+    public int getOnlineCount() {
         return onlineCount;
     }
 
-    public void setOnlineCount(String onlineCount) {
+    public void setOnlineCount(int onlineCount) {
         this.onlineCount = onlineCount;
     }
 
@@ -46,11 +56,15 @@ public class Message {
         this.type = type;
     }
 
-    public String getUserName() {
-        return username;
+    public String getName() {
+        return Username;
     }
 
-    public void setUserName(String username) {
-        this.username = username;
+    public void setName(String Username) {
+        this.Username = Username;
     }
+
+
 }
+
+     
