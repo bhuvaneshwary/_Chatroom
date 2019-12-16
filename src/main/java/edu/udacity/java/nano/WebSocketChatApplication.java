@@ -32,19 +32,21 @@ public class WebSocketChatApplication {
     /**
      * Chatroom Page
      */
+
+    /** Chatroom Page */
     @GetMapping("/index")
-    public ModelAndView index(String username, HttpServletRequest request) throws UnknownHostException {
-        //TODO: add code for login to chatroom.
-
-        ModelAndView mv = new ModelAndView("/chat");
-        if(username == null || username == ""){
-            username = "NotAnUser";
-        }
-
+    public ModelAndView index(String username, HttpServletRequest request)
+            throws UnknownHostException {
+        ModelAndView mv = new ModelAndView("chat");
         mv.addObject("username", username);
-        // TODO: To return Route = "ws://localhost:8080/chat"
-        mv.addObject("url","ws://" + InetAddress.getLocalHost().getHostName() + ":" +request.getServerPort()+request.getContextPath() + "/chat");
-        
+        mv.addObject(
+                "webSocketUrl",
+                "ws://"
+                        + InetAddress.getLocalHost().getHostAddress()
+                        + ":"
+                        + request.getServerPort()
+                        + request.getContextPath()
+                        + "/chat");
         return mv;
     }
 }
