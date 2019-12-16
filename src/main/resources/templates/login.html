@@ -146,35 +146,40 @@
 
 <script>
 
+
+
     /**
      * Login
      */
  function login() {
-       
+        var username = $('#username').val();
 
-         /*
+            /*
             *Here we are using the window.location api to route the code to the chatpage
             */
-          var username  = $('#username').val();
-
+            var username  = $('#username').val();
+            console.log("username" + username);
             var path =  '/index?username='+username;
-          
-         location.href = path ;
+            console.log("path is "+path);
 
+         location.href = path ;
 
         }
 
-    
+
 
 
 
     /**
      * Enter to login.
      */
-     
 
 </script>
 
 
 </body>
 </html>
+       
+       
+          
+         
